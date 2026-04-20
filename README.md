@@ -181,8 +181,8 @@ If you use this code in published work, please cite both:
     url    = {https://github.com/pietrog-pd/SimpleDigitizerGP}
 }
 
-@software{YOUR_LASTNAME_luxedigit,
-    author = {YOUR_FULL_NAME},
+@software{Aboud_luxedigit,
+    author = {Salman Aboud},
     title  = {luxe-digit: ML-augmented digitization pipeline for the LUXE GBP},
     year   = {2026},
     url    = {https://github.com/salthekal/luxe-digit},
@@ -218,7 +218,7 @@ Preserved as **GNU GPL v3.0** from the original work. See [`LICENSE`](./LICENSE)
 
 <div align="center">
 <sub>
-Maintained by <a href="https://github.com/salthekal">YOUR_NAME</a> · MSc Physics, UniversitÃ  degli Studi di Padova · LUXE collaboration
+Maintained by <a href="https://github.com/salthekal">Salman Aboud</a> · MSc Physics, UniversitÃ  degli Studi di Padova · LUXE collaboration
 </sub>
 </div>
 
