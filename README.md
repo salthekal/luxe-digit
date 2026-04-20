@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <img src="./assets/banner.svg" alt="luxe-digit banner" width="100%" />
 
@@ -6,7 +6,7 @@
 
 **An ML-augmented detector digitization pipeline for the LUXE Gamma Beam Profiler.**
 
-*Strong-field QED Â· Geant4 Â· ROOT Â· PyTorch Â· Docker*
+*Strong-field QED · Geant4 · ROOT · PyTorch · Docker*
 
 <p>
   <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white" />
@@ -24,9 +24,9 @@
 
 ---
 
-## âœ¦ &nbsp; What this is
+## ✦ &nbsp; What this is
 
-`luxe-digit` is a detector-response simulation pipeline for the **LUXE experiment** at DESY â€” the proposed observation of non-linear QED in the Schwinger-critical-field regime, achieved by colliding the XFEL.EU electron beam with a high-intensity laser pulse.
+`luxe-digit` is a detector-response simulation pipeline for the **LUXE experiment** at DESY "” the proposed observation of non-linear QED in the Schwinger-critical-field regime, achieved by colliding the XFEL.EU electron beam with a high-intensity laser pulse.
 
 The **Gamma Beam Profiler (GBP)** is the downstream diagnostic that measures the transverse profile of the Compton-scattered photon flux. Its sensors are silicon-strip devices read out by CAEN DT5202 charge-integrating ADCs. Before any real data can be interpreted, we need to quantify how *detector-dependent effects* degrade our ability to reconstruct the true spatial distribution of deposited energy.
 
@@ -39,7 +39,7 @@ It consumes a Geant4 Monte Carlo simulation of particle interactions in the GBP 
 3. **Inter-strip crosstalk** (configurable multi-neighbor charge-sharing map)
 4. **Pre-amplification** (configurable gain)
 5. **ADC quantization** (configurable bit depth and full-scale range)
-6. **Feature extraction** â€” either the original Gaussian+constant fit *or*, new in this fork, a learned neural regressor.
+6. **Feature extraction** "” either the original Gaussian+constant fit *or*, new in this fork, a learned neural regressor.
 
 The output is a ROOT file of digitized profiles and extracted parameters, ready for downstream physics analysis.
 
@@ -47,12 +47,12 @@ The output is a ROOT file of digitized profiles and extracted parameters, ready 
 
 ---
 
-## âœ¦ &nbsp; Pipeline
+## ✦ &nbsp; Pipeline
 
 ```mermaid
 flowchart LR
     MC[Geant4 MC<br/>ROOT file] --> R[readFromMc<br/>charge projection]
-    R --> F[frontend<br/>noise Â· crosstalk Â· gain Â· ADC]
+    R --> F[frontend<br/>noise · crosstalk · gain · ADC]
     F --> X1[featureExtractor<br/>gaussian+const fit]
     F -.new.-> X2[ml_extractor<br/>learned regressor]
     X1 --> OUT[(OPT ROOT TTree)]
@@ -68,27 +68,27 @@ The dashed branch is the contribution added in this fork.
 
 ---
 
-## âœ¦ &nbsp; What's new in this fork
+## ✦ &nbsp; What's new in this fork
 
 This repository builds on the excellent original `SimpleDigitizerGP` by Pietro Gruetta and adds the following:
 
 | Addition | Purpose |
 |---|---|
-| **ML-based feature extractor** | A PyTorch MLP trained on paired (digitized profile â†’ true Gaussian parameters) pairs â€” runs ~100Ã— faster than `ROOT::TF1::Fit`, handles saturated profiles without branching logic, and provides learned uncertainty estimates via MC-dropout. |
+| **ML-based feature extractor** | A PyTorch MLP trained on paired (digitized profile â†’ true Gaussian parameters) pairs "” runs ~100Ã— faster than `ROOT::TF1::Fit`, handles saturated profiles without branching logic, and provides learned uncertainty estimates via MC-dropout. |
 | **Modern packaging** (`pyproject.toml`, `uv` support) | Reproducible installs, resolved dependency tree, `pip install -e .` support. |
-| **Containerized environment** (Docker, using `rootproject/root` base image) | One-command reproducibility â€” no local ROOT install needed. |
+| **Containerized environment** (Docker, using `rootproject/root` base image) | One-command reproducibility "” no local ROOT install needed. |
 | **Optional `uproot` backend** | Read/write ROOT files without a PyROOT dependency for quick prototyping on systems without CERN ROOT installed. |
 | **Test suite** (`pytest`) | Unit tests for charge projection, noise injection, and ADC quantization. |
 | **GitHub Actions CI** | Automated linting (`ruff`) and tests on every push. |
 | **Proper academic citation** (`CITATION.cff`) | Machine-readable citation metadata for both the original work and this fork. |
 
-None of these changes alter the physics of the original pipeline â€” the digitization stages (`readFromMc`, `frontend`, `featureExtractor`) are preserved and remain the authoritative reference implementation.
+None of these changes alter the physics of the original pipeline "” the digitization stages (`readFromMc`, `frontend`, `featureExtractor`) are preserved and remain the authoritative reference implementation.
 
 <br/>
 
 ---
 
-## âœ¦ &nbsp; Quick start
+## ✦ &nbsp; Quick start
 
 ### With Docker (recommended)
 
@@ -132,15 +132,15 @@ python -m luxedigit.ml_extractor predict \
 
 ---
 
-## âœ¦ &nbsp; Output schema
+## ✦ &nbsp; Output schema
 
 Each run writes an `OPT` TTree with one entry per (bunch, detector) pair. Key branches:
 
 | Branch | Type | Description |
 |---|---|---|
 | `bunch`, `evt`, `det` | UInt_t | Indexing |
-| `bunchParNb`, `cce`, `avgPairEn` | â€” | Source-side parameters |
-| `fNoise`, `iADCres`, `fOlScale`, `fGain` | â€” | Front-end parameters |
+| `bunchParNb`, `cce`, `avgPairEn` | "” | Source-side parameters |
+| `fNoise`, `iADCres`, `fOlScale`, `fGain` | "” | Front-end parameters |
 | `vChgShrCrossTalkMap` | Double_t[10] | Crosstalk sharing vector |
 | `fSA_amp`, `fSA_mea`, `fSA_sig`, `fSA_bck` | Double_t | Gaussian+constant fit params |
 | `fSA_*_err` | Double_t | 1-sigma fit errors |
@@ -148,13 +148,13 @@ Each run writes an `OPT` TTree with one entry per (bunch, detector) pair. Key br
 | `ml_amp`, `ml_mea`, `ml_sig`, `ml_bck` | Double_t | ML-regressor outputs *(new)* |
 | `ml_*_std` | Double_t | MC-dropout uncertainty *(new)* |
 
-> `fSA_*` and `ml_*` branches are vectors of length 2 â€” index 0 is the upstream detector, index 1 is the downstream detector.
+> `fSA_*` and `ml_*` branches are vectors of length 2 "” index 0 is the upstream detector, index 1 is the downstream detector.
 
 <br/>
 
 ---
 
-## âœ¦ &nbsp; Physics context
+## ✦ &nbsp; Physics context
 
 For readers less familiar with the LUXE experiment, see [`docs/physics.md`](./docs/physics.md) for:
 
@@ -167,7 +167,7 @@ For readers less familiar with the LUXE experiment, see [`docs/physics.md`](./do
 
 ---
 
-## âœ¦ &nbsp; Attribution & citation
+## ✦ &nbsp; Attribution & citation
 
 This work is a derivative of [`SimpleDigitizerGP`](https://github.com/pietrog-pd/SimpleDigitizerGP) by **Pietro Gruetta** (INFN Padova / LUXE Collaboration). The digitization physics, ROOT data structures, and pipeline architecture are entirely his work. My contributions are limited to the ML extension, packaging, containerization, testing, and documentation layers described above.
 
@@ -196,7 +196,7 @@ Machine-readable metadata in [`CITATION.cff`](./CITATION.cff).
 
 ---
 
-## âœ¦ &nbsp; Roadmap
+## ✦ &nbsp; Roadmap
 
 - [x] Reproduce original `SimpleDigitizerGP` output bit-for-bit
 - [x] Modern packaging and Docker environment
@@ -210,7 +210,7 @@ Machine-readable metadata in [`CITATION.cff`](./CITATION.cff).
 
 ---
 
-## âœ¦ &nbsp; License
+## ✦ &nbsp; License
 
 Preserved as **GNU GPL v3.0** from the original work. See [`LICENSE`](./LICENSE).
 
@@ -218,7 +218,7 @@ Preserved as **GNU GPL v3.0** from the original work. See [`LICENSE`](./LICENSE)
 
 <div align="center">
 <sub>
-Maintained by <a href="https://github.com/salthekal">YOUR_NAME</a> Â· MSc Physics, UniversitÃ  degli Studi di Padova Â· LUXE collaboration
+Maintained by <a href="https://github.com/salthekal">YOUR_NAME</a> · MSc Physics, UniversitÃ  degli Studi di Padova · LUXE collaboration
 </sub>
 </div>
 
