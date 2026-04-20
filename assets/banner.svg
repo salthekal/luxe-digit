@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" role="img" aria-label="luxe-digit banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="55%" stop-color="#121b2f"/>
+      <stop offset="100%" stop-color="#1a1538"/>
+    </linearGradient>
+    <linearGradient id="peak" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#D97757" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#D97757" stop-opacity="0.55"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="280" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#2a3550" stroke-width="0.5" opacity="0.55">
+    <path d="M0 70 H1200 M0 140 H1200 M0 210 H1200"/>
+    <path d="M200 0 V280 M400 0 V280 M600 0 V280 M800 0 V280 M1000 0 V280"/>
+  </g>
+
+  <!-- simulated digitized strip profile — an actual Gaussian + noise -->
+  <!-- the bar-chart strips -->
+  <g>
+    <!-- left baseline strips -->
+    <rect x="40"  y="216" width="16" height="8"  fill="#4F7DF3" opacity="0.7"/>
+    <rect x="60"  y="214" width="16" height="10" fill="#4F7DF3" opacity="0.7"/>
+    <rect x="80"  y="218" width="16" height="6"  fill="#4F7DF3" opacity="0.7"/>
+    <rect x="100" y="212" width="16" height="12" fill="#4F7DF3" opacity="0.7"/>
+    <rect x="120" y="216" width="16" height="8"  fill="#4F7DF3" opacity="0.7"/>
+    <rect x="140" y="214" width="16" height="10" fill="#4F7DF3" opacity="0.7"/>
+    <rect x="160" y="210" width="16" height="14" fill="#4F7DF3" opacity="0.7"/>
+    <rect x="180" y="206" width="16" height="18" fill="#4F7DF3" opacity="0.8"/>
+    <rect x="200" y="198" width="16" height="26" fill="#4F7DF3" opacity="0.8"/>
+    <rect x="220" y="185" width="16" height="39" fill="#4F7DF3" opacity="0.85"/>
+    <rect x="240" y="168" width="16" height="56" fill="#4F7DF3" opacity="0.9"/>
+    <rect x="260" y="145" width="16" height="79" fill="#4F7DF3" opacity="0.95"/>
+    <!-- peak -->
+    <rect x="280" y="118" width="16" height="106" fill="#D97757"/>
+    <rect x="300" y="98"  width="16" height="126" fill="#D97757"/>
+    <rect x="320" y="105" width="16" height="119" fill="#D97757"/>
+    <!-- descent -->
+    <rect x="340" y="132" width="16" height="92"  fill="#4F7DF3" opacity="0.95"/>
+    <rect x="360" y="158" width="16" height="66"  fill="#4F7DF3" opacity="0.9"/>
+    <rect x="380" y="178" width="16" height="46"  fill="#4F7DF3" opacity="0.85"/>
+    <rect x="400" y="194" width="16" height="30"  fill="#4F7DF3" opacity="0.8"/>
+    <rect x="420" y="204" width="16" height="20"  fill="#4F7DF3" opacity="0.75"/>
+    <rect x="440" y="212" width="16" height="12"  fill="#4F7DF3" opacity="0.7"/>
+    <rect x="460" y="216" width="16" height="8"   fill="#4F7DF3" opacity="0.7"/>
+    <rect x="480" y="214" width="16" height="10"  fill="#4F7DF3" opacity="0.7"/>
+    <rect x="500" y="218" width="16" height="6"   fill="#4F7DF3" opacity="0.7"/>
+  </g>
+
+  <!-- smooth Gaussian fit overlay -->
+  <path d="M 40 220
+           Q 180 218, 230 200
+           Q 280 105, 310 95
+           Q 340 105, 390 180
+           Q 450 218, 516 222"
+        stroke="#D97757" stroke-width="2.5" fill="none" opacity="0.95" filter="url(#glow)"/>
+
+  <!-- area under peak -->
+  <path d="M 40 220
+           Q 180 218, 230 200
+           Q 280 105, 310 95
+           Q 340 105, 390 180
+           Q 450 218, 516 222
+           L 516 224 L 40 224 Z"
+        fill="url(#peak)"/>
+
+  <!-- axes -->
+  <g stroke="#8b949e" stroke-width="1" opacity="0.8">
+    <line x1="30"  y1="224" x2="530" y2="224"/>
+    <line x1="30"  y1="224" x2="30"  y2="60"/>
+  </g>
+
+  <!-- axis ticks -->
+  <g fill="#8b949e" font-family="JetBrains Mono, ui-monospace, monospace" font-size="10" opacity="0.8">
+    <text x="35" y="240">0</text>
+    <text x="175" y="240">16</text>
+    <text x="315" y="240">32</text>
+    <text x="455" y="240">48</text>
+    <text x="240" y="260" font-size="11">strip index</text>
+  </g>
+
+  <!-- wordmark -->
+  <g font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="600" y="110" font-size="64" font-weight="700" fill="#ffffff" letter-spacing="-1.5">
+      luxe<tspan fill="#D97757">-</tspan>digit
+    </text>
+    <text x="602" y="144" font-size="18" fill="#c9d1d9" opacity="0.9">
+      ML-augmented detector digitization for the LUXE GBP
+    </text>
+    <text x="602" y="170" font-size="13" fill="#8b949e" font-family="JetBrains Mono, ui-monospace, monospace">
+      Geant4 → projection → noise → crosstalk → ADC → features
+    </text>
+
+    <!-- badges -->
+    <g transform="translate(602, 195)">
+      <rect x="0"   y="0" width="92"  height="26" rx="4" fill="#1f2937" stroke="#4F7DF3" stroke-width="1"/>
+      <text x="46"  y="17" text-anchor="middle" font-size="11" fill="#c9d1d9">CERN · DESY</text>
+      <rect x="100" y="0" width="72"  height="26" rx="4" fill="#1f2937" stroke="#4F7DF3" stroke-width="1"/>
+      <text x="136" y="17" text-anchor="middle" font-size="11" fill="#c9d1d9">Geant4</text>
+      <rect x="178" y="0" width="68"  height="26" rx="4" fill="#1f2937" stroke="#D97757" stroke-width="1"/>
+      <text x="212" y="17" text-anchor="middle" font-size="11" fill="#c9d1d9">PyTorch</text>
+      <rect x="252" y="0" width="60"  height="26" rx="4" fill="#1f2937" stroke="#4F7DF3" stroke-width="1"/>
+      <text x="282" y="17" text-anchor="middle" font-size="11" fill="#c9d1d9">ROOT</text>
+    </g>
+
+    <!-- QED inline equation hint -->
+    <text x="1100" y="252" text-anchor="end" font-size="10" fill="#8b949e" opacity="0.6"
+          font-family="Times, serif" font-style="italic">
+      E&#8320; / E&#x1D04;ᵣ ≳ 1   ⟶   nonlinear QED
+    </text>
+  </g>
+</svg>

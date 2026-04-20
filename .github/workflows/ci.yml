@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint & type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install project (lint-only deps)
+        run: |
+          pip install --upgrade pip
+          pip install ruff mypy
+          pip install -e ".[ml,dev]"
+
+      - name: Ruff (lint)
+        run: ruff check src/ tests/
+
+      - name: Ruff (format check)
+        run: ruff format --check src/ tests/
+
+      - name: Mypy
+        run: mypy src/luxedigit || true   # advisory until typed
+
+  test:
+    name: Test (non-ROOT)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[ml,dev]" --extra-index-url https://download.pytorch.org/whl/cpu
+
+      - name: Pytest (uproot + ML paths only)
+        run: pytest -m "not requires_root" --cov=luxedigit
+
+  docker:
+    name: Docker build smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t luxe-digit:ci .

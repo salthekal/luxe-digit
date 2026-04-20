@@ -1,0 +1,32 @@
+﻿cff-version: 1.2.0
+message: "If you use this software, please cite both this fork and the upstream work by Pietro Gruetta."
+type: software
+title: "luxe-digit: ML-augmented digitization pipeline for the LUXE Gamma Beam Profiler"
+authors:
+  - family-names: YOUR_LASTNAME
+    given-names: YOUR_FIRSTNAME
+    orcid: "https://orcid.org/YOUR_ORCID"
+    affiliation: "UniversitÃ  degli Studi di Padova, LUXE collaboration"
+repository-code: "https://github.com/salthekal/luxe-digit"
+license: GPL-3.0-or-later
+keywords:
+  - LUXE
+  - CERN
+  - DESY
+  - Geant4
+  - particle physics
+  - detector simulation
+  - silicon strip detector
+  - machine learning
+
+references:
+  - type: software
+    title: "SimpleDigitizerGP: A simplified digitization pipeline for the LUXE GBP"
+    authors:
+      - family-names: Gruetta
+        given-names: Pietro
+        affiliation: "INFN Padova, LUXE collaboration"
+    repository-code: "https://github.com/pietrog-pd/SimpleDigitizerGP"
+    license: GPL-3.0-or-later
+    year: 2023
+
